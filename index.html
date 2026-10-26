@@ -233,12 +233,21 @@
   }
 
   .icon-chip{
+    position:relative;
+    overflow:hidden;
     flex-shrink:0;
     width:44px;height:44px;
     border-radius:14px;
     background:var(--surface-alt);
     color:var(--accent-ink);
     display:flex;align-items:center;justify-content:center;
+  }
+  .chip-img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
   }
   .row-text{
     flex:1;
@@ -318,6 +327,7 @@
         <a class="link-row" href="https://blog.naver.com/zeze__soso" target="_blank" rel="noopener">
           <span class="icon-chip" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C4 4.67 4.67 4 5.5 4H17a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.44L15 18H5.5A1.5 1.5 0 0 1 4 16.5v-11Z"/><line x1="7.5" y1="8" x2="14.5" y2="8"/><line x1="7.5" y1="11.5" x2="13" y2="11.5"/></svg>
+            <img class="chip-img" src="icon-zeze.png" alt="" onerror="this.remove()">
           </span>
           <span class="row-text">
             <span class="label">블로그</span>
@@ -332,6 +342,7 @@
         <a class="link-row" href="https://shop.coupang.com/faustus" target="_blank" rel="noopener">
           <span class="icon-chip" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l1 12.5a1.5 1.5 0 0 1-1.5 1.5H6.5A1.5 1.5 0 0 1 5 20.5L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+            <img class="chip-img" src="icon-faustus.png" alt="" onerror="this.remove()">
           </span>
           <span class="row-text">
             <span class="label">쿠팡 스토어</span>
@@ -346,6 +357,7 @@
         <a class="link-row" href="https://www.youtube.com/@zeze__soso" target="_blank" rel="noopener">
           <span class="icon-chip" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg>
+            <img class="chip-img" src="icon-youtube.png" alt="" onerror="this.remove()">
           </span>
           <span class="row-text">
             <span class="label">유튜브</span>
