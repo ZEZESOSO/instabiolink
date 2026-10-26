@@ -49,13 +49,12 @@
   }
 
   *{ box-sizing:border-box; }
+  html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
   body{
     margin:0;
     min-height:100vh;
     background:var(--ground);
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display:block;
     padding:32px 16px;
     font-family:'Gowun Dodum','Malgun Gothic',sans-serif;
     position:relative;
@@ -79,6 +78,7 @@
     z-index:1;
     width:100%;
     max-width:412px;
+    margin:0 auto;
     background:var(--surface);
     border-radius:30px;
     overflow:hidden;
@@ -157,7 +157,7 @@
   }
   .avatar-img{
     position:absolute;
-    inset:0;
+    top:0; left:0; right:0; bottom:0;
     width:100%;
     height:100%;
     object-fit:cover;
@@ -208,6 +208,7 @@
 
   .link-row{
     display:flex;
+    min-width:0;
     align-items:center;
     gap:14px;
     width:100%;
@@ -244,14 +245,16 @@
   }
   .chip-img{
     position:absolute;
-    inset:0;
+    top:0; left:0;
+    width:44px; height:44px; max-width:none;
     width:100%;
     height:100%;
     object-fit:cover;
   }
   .row-text{
-    flex:1;
+    flex:1 1 0;
     min-width:0;
+    width:0;
     text-align:left;
     display:flex;
     flex-direction:column;
@@ -262,6 +265,7 @@
     font-weight:700;
     font-size:1.03rem;
     color:var(--ink);
+    white-space:nowrap;
   }
   .row-text .desc{
     font-size:.78rem;
@@ -327,11 +331,11 @@
         <a class="link-row" href="https://blog.naver.com/zeze__soso" target="_blank" rel="noopener">
           <span class="icon-chip" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C4 4.67 4.67 4 5.5 4H17a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.44L15 18H5.5A1.5 1.5 0 0 1 4 16.5v-11Z"/><line x1="7.5" y1="8" x2="14.5" y2="8"/><line x1="7.5" y1="11.5" x2="13" y2="11.5"/></svg>
-            <img class="chip-img" src="icon-zeze.png" alt="" onerror="this.remove()">
+            <img class="chip-img" width="44" height="44" src="icon-zeze.png" alt="" onerror="this.remove()">
           </span>
           <span class="row-text">
             <span class="label">블로그</span>
-            <span class="desc">맛집 &amp; 뷰티 꿀팁 아카이브</span>
+            <span class="desc">맛집 아카이브</span>
           </span>
           <span class="chevron" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
@@ -339,14 +343,14 @@
         </a>
       </li>
       <li>
-        <a class="link-row" href="https://shop.coupang.com/faustus" target="_blank" rel="noopener">
+        <a class="link-row" href="https://shop.coupang.com/A01241802?source=brandstore_sdp_atf&amp;ocid=22283443&amp;checkBatchDelivery=true&amp;pid=8930080933&amp;viid=92960020541&amp;platform=p&amp;brandId=0&amp;btcEnableForce=false" target="_blank" rel="noopener">
           <span class="icon-chip" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l1 12.5a1.5 1.5 0 0 1-1.5 1.5H6.5A1.5 1.5 0 0 1 5 20.5L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
-            <img class="chip-img" src="icon-faustus.png" alt="" onerror="this.remove()">
+            <img class="chip-img" width="44" height="44" src="icon-faustus.png" alt="" onerror="this.remove()">
           </span>
           <span class="row-text">
             <span class="label">쿠팡 스토어</span>
-            <span class="desc">졔졔소소 추천 아이템 쇼핑하기</span>
+            <span class="desc">졔졔소소 아이템 쇼핑하기</span>
           </span>
           <span class="chevron" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
@@ -357,11 +361,11 @@
         <a class="link-row" href="https://www.youtube.com/@zeze__soso" target="_blank" rel="noopener">
           <span class="icon-chip" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg>
-            <img class="chip-img" src="icon-youtube.png" alt="" onerror="this.remove()">
+            <img class="chip-img" width="44" height="44" src="icon-youtube.png" alt="" onerror="this.remove()">
           </span>
           <span class="row-text">
             <span class="label">유튜브</span>
-            <span class="desc">영상으로 보는 맛집 &amp; 뷰티</span>
+            <span class="desc">영상으로 보는 zeze Vlog</span>
           </span>
           <span class="chevron" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
