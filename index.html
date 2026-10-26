@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>zeze_soso</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gowun+Dodum&display=swap">
+<style>
+  :root{
+    --ground:#FCEFEF;
+    --surface:#FFFBFA;
+    --surface-alt:#F8E2DE;
+    --chrome-bg:#F6E2DF;
+    --ink:#3D2228;
+    --ink-soft:#8F6B6E;
+    --accent:#E8905A;
+    --accent-ink:#6B3240;
+    --rose:#F0A3AE;
+    --line:#F0D9D6;
+    --shadow: rgba(107,43,58,0.14);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#231418;
+      --surface:#2E1B1F;
+      --surface-alt:#3D2429;
+      --chrome-bg:#2A191D;
+      --ink:#F7E6E9;
+      --ink-soft:#C7A3A8;
+      --accent:#F0A368;
+      --accent-ink:#341017;
+      --rose:#F2A8B4;
+      --line:#45282D;
+      --shadow: rgba(0,0,0,0.45);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#1D1410;
+    --surface:#2A1E19;
+    --surface-alt:#3A2A22;
+    --chrome-bg:#271C17;
+    --ink:#F7ECE3;
+    --ink-soft:#BCA296;
+    --accent:#F0A94A;
+    --accent-ink:#2A1A0C;
+    --rose:#E8A9AE;
+    --line:#3E2E27;
+    --shadow: rgba(0,0,0,0.45);
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    min-height:100vh;
+    background:var(--ground);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:32px 16px;
+    font-family:'Gowun Dodum','Malgun Gothic',sans-serif;
+    position:relative;
+    overflow-x:hidden;
+  }
+  body::before, body::after{
+    content:"";
+    position:fixed;
+    width:46vmax; height:46vmax;
+    border-radius:50%;
+    filter:blur(60px);
+    opacity:.35;
+    z-index:0;
+    pointer-events:none;
+  }
+  body::before{ background:var(--accent); top:-18vmax; left:-16vmax; }
+  body::after{ background:var(--rose); bottom:-20vmax; right:-16vmax; }
+
+  .app-card{
+    position:relative;
+    z-index:1;
+    width:100%;
+    max-width:412px;
+    background:var(--surface);
+    border-radius:30px;
+    overflow:hidden;
+    box-shadow:0 24px 60px var(--shadow), 0 2px 8px var(--shadow);
+    border:1px solid var(--line);
+  }
+
+  /* faux in-app browser chrome */
+  .chrome-bar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    height:46px;
+    padding:0 14px;
+    background:var(--chrome-bg);
+    border-bottom:1px solid var(--line);
+    font-family:-apple-system,"Segoe UI",sans-serif;
+  }
+  .chrome-btn{
+    width:26px;height:26px;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:50%;
+    color:var(--ink-soft);
+    flex-shrink:0;
+  }
+  .chrome-url{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    background:var(--surface);
+    border-radius:9px;
+    height:28px;
+    color:var(--ink-soft);
+    font-size:.72rem;
+    letter-spacing:.01em;
+    min-width:0;
+    padding:0 10px;
+  }
+  .chrome-url span{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+
+  .content{
+    padding:40px 26px 34px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+  }
+
+  .avatar-wrap{
+    position:relative;
+    animation:riseIn .5s ease both;
+  }
+  .avatar{
+    position:relative;
+    width:104px;height:104px;
+    border-radius:50%;
+    overflow:hidden;
+    background:linear-gradient(135deg,var(--accent),var(--rose));
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 10px 24px var(--shadow);
+  }
+  .avatar span{
+    font-family:'Gaegu',sans-serif;
+    font-weight:700;
+    font-size:2.6rem;
+    color:var(--surface);
+    line-height:1;
+    transform:translateY(-2px);
+  }
+  .avatar-img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+  .badge{
+    position:absolute;
+    right:-8px; bottom:-6px;
+    width:34px;height:34px;
+    display:flex;align-items:center;justify-content:center;
+    transform:rotate(-12deg);
+    filter:drop-shadow(0 3px 5px var(--shadow));
+  }
+  .badge svg path{
+    stroke:#FFFFFF;
+    stroke-width:1.3;
+    stroke-linejoin:round;
+  }
+
+  h1{
+    margin:18px 0 0;
+    font-family:'Gaegu',sans-serif;
+    font-weight:700;
+    font-size:1.65rem;
+    color:var(--ink);
+    animation:riseIn .5s ease .05s both;
+  }
+  .tagline{
+    margin:6px 0 0;
+    font-size:.95rem;
+    color:var(--ink-soft);
+    letter-spacing:.01em;
+    animation:riseIn .5s ease .1s both;
+  }
+
+  .links{
+    list-style:none;
+    margin:30px 0 0;
+    padding:0;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    gap:13px;
+  }
+  .links li{ animation:riseIn .5s ease both; }
+  .links li:nth-child(1){ animation-delay:.15s; }
+  .links li:nth-child(2){ animation-delay:.2s; }
+  .links li:nth-child(3){ animation-delay:.25s; }
+
+  .link-row{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    width:100%;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:13px 15px;
+    text-decoration:none;
+    color:var(--ink);
+    box-shadow:0 1px 2px var(--shadow);
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .link-row:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 20px var(--shadow);
+  }
+  .link-row:active{
+    transform:translateY(0) scale(.98);
+  }
+  .link-row:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  .icon-chip{
+    flex-shrink:0;
+    width:44px;height:44px;
+    border-radius:14px;
+    background:var(--surface-alt);
+    color:var(--accent-ink);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .row-text{
+    flex:1;
+    min-width:0;
+    text-align:left;
+    display:flex;
+    flex-direction:column;
+    gap:1px;
+  }
+  .row-text .label{
+    font-family:'Gaegu',sans-serif;
+    font-weight:700;
+    font-size:1.03rem;
+    color:var(--ink);
+  }
+  .row-text .desc{
+    font-size:.78rem;
+    color:var(--ink-soft);
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .chevron{
+    flex-shrink:0;
+    color:var(--ink-soft);
+  }
+
+  @keyframes riseIn{
+    from{ opacity:0; transform:translateY(10px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app-card">
+  <div class="chrome-bar" aria-hidden="true">
+    <span class="chrome-btn">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </span>
+    <span class="chrome-url">
+      <svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 2a4 4 0 0 0-4 4v3H7a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V6a4 4 0 0 0-4-4Zm-2 7V6a2 2 0 1 1 4 0v3Z"/></svg>
+      <span>zeze-soso.page</span>
+    </span>
+    <span class="chrome-btn">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4m0 0 3.5 3.5M12 4 8.5 7.5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
+    </span>
+  </div>
+
+  <div class="content">
+    <div class="avatar-wrap">
+      <div class="avatar">
+        <span>Z</span>
+        <img class="avatar-img" src="profile.jpg" alt="zeze_soso" onerror="this.style.display='none'">
+      </div>
+      <div class="badge" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="34" height="34">
+          <defs>
+            <linearGradient id="starGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#6EC3FF"/>
+              <stop offset="100%" stop-color="#0095F6"/>
+            </linearGradient>
+          </defs>
+          <path fill="url(#starGrad)" d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+      </div>
+    </div>
+
+    <h1>zeze_soso</h1>
+    <p class="tagline">맛집 · 뷰티 꿀팁</p>
+
+    <ul class="links">
+      <li>
+        <a class="link-row" href="https://blog.naver.com/zeze__soso" target="_blank" rel="noopener">
+          <span class="icon-chip" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C4 4.67 4.67 4 5.5 4H17a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.44L15 18H5.5A1.5 1.5 0 0 1 4 16.5v-11Z"/><line x1="7.5" y1="8" x2="14.5" y2="8"/><line x1="7.5" y1="11.5" x2="13" y2="11.5"/></svg>
+          </span>
+          <span class="row-text">
+            <span class="label">블로그</span>
+            <span class="desc">맛집 &amp; 뷰티 꿀팁 아카이브</span>
+          </span>
+          <span class="chevron" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="link-row" href="https://shop.coupang.com/faustus" target="_blank" rel="noopener">
+          <span class="icon-chip" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l1 12.5a1.5 1.5 0 0 1-1.5 1.5H6.5A1.5 1.5 0 0 1 5 20.5L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+          </span>
+          <span class="row-text">
+            <span class="label">쿠팡 스토어</span>
+            <span class="desc">졔졔소소 추천 아이템 쇼핑하기</span>
+          </span>
+          <span class="chevron" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="link-row" href="https://www.youtube.com/@zeze__soso" target="_blank" rel="noopener">
+          <span class="icon-chip" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg>
+          </span>
+          <span class="row-text">
+            <span class="label">유튜브</span>
+            <span class="desc">영상으로 보는 맛집 &amp; 뷰티</span>
+          </span>
+          <span class="chevron" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>
